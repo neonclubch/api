@@ -1,0 +1,31 @@
+{
+  "name": "event-api",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "start": "functions-framework --target=eventApi",
+    "dev": "yarn start | pino-pretty",
+    "prestart": "yarn build",
+    "gcp-build": "yarn build",
+    "deploy": "gcloud functions deploy neo-rsvp-api --project=neo-tickets-shop --gen2 --region=europe-west6 --allow-unauthenticated --runtime nodejs22 --trigger-http --entry-point=rsvpApi --set-env-vars SPREADSHEET_ID=$SPREADSHEET_ID --set-env-vars TARGET_USER_EMAIL=$TARGET_USER_EMAIL --max-instances=2 --service-account=neo-rsvp-api@neo-tickets-shop.iam.gserviceaccount.com"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.4.0",
+    "@google-cloud/local-auth": "2.1.0",
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "googleapis": "105",
+    "pino-http": "^10.2.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.9",
+    "pino-pretty": "^11.2.1",
+    "typescript": "^5.5.3"
+  }
+}
